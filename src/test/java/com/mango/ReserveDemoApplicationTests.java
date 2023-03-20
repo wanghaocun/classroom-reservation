@@ -1,6 +1,5 @@
 package com.mango;
 
-import com.antfinancial.mychain.baas.tool.restclient.RestClient;
 import com.mango.dao.*;
 import com.mango.pojo.Classroom;
 import com.mango.pojo.RoomAvailableTimeInfo;
@@ -63,7 +62,7 @@ class ReserveDemoApplicationTests {
     @Test
     public void testTime() throws ParseException {
 
-        System.out.println(CommonUtil.toUseRate("1","89"));
+        System.out.println(CommonUtil.toUseRate("1", "89"));
 
     }
 
@@ -191,7 +190,7 @@ class ReserveDemoApplicationTests {
                         int date3 = Integer.parseInt(info.get(k));
                         if (Math.abs(date2 - date3) <= 7) {
                             System.out.println("yep");
-                            return ;
+                            return;
                         }
                     }
                 }

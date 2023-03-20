@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mybatis?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
+    url: jdbc:mysql://localhost:23306/reservation_demo?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
     username: root
-    password: lsx35936030
+    password: mydemo
   thymeleaf:
     cache: false
 
