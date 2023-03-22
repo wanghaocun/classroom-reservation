@@ -9,6 +9,12 @@
 
 <!-- start admin index-->
 
+
+<div class="nav-header brand-logo brand-title" th:fragment="header">
+   <h3>自习室预约管理系统</h3>
+</div>
+
+
 <!-- header -->
 <div class="header" th:fragment="header">
     <header class="top-head container-fluid">
@@ -19,7 +25,8 @@
             <div class="left-header content-header__menu">
                 <ul class="list-unstyled">
                     <li class="nav-link btn">
-                        <a th:href="@{/make_reservation}"><i class="far fa-calendar-check"></i> <span> 新添加自习预约 </span></a>
+                        <a th:href="@{/make_reservation}"><i class="far fa-calendar-check"></i>
+                            <span> 预约自习室 </span></a>
                     </li>
                 </ul>
             </div>
@@ -71,7 +78,7 @@
             <li th:class="${active=='all_student'?'has-submenu active':'has-submenu'}" >
                 <a th:href="@{/all_student}">
                     <i class="fas fa-users"></i>
-                    <span class="nav-label">学生信息管理</span>
+                    <span class="nav-label">学生管理</span>
                 </a>
             </li>
 
@@ -79,7 +86,7 @@
             <li th:class="${active=='all_classroom'?'has-submenu active':'has-submenu'}">
                 <a th:href="@{/all_classroom}">
                     <i class="fas fa-warehouse"></i>
-                    <span class="nav-label">教室信息管理</span>
+                    <span class="nav-label">教室管理</span>
                 </a>
             </li>
 
@@ -96,9 +103,26 @@
                 </ul>
             </li>
 
+
+<!--            todo-->
+            <li th:class="${active=='student_index'?'has-submenu active':'has-submenu'}">
+                <a href="#" class="has-submenu active">
+                    <i class="fas fa-sticky-note"></i>
+                    <span class="nav-label">公告管理</span>
+                </a>
+            </li>
+            <!--            todo-->
+            <li th:class="${active=='student_index'?'has-submenu active':'has-submenu'}">
+                <a href="#" class="has-submenu active">
+                    <i class="fas fa-comment-dots"></i>
+                    <span class="nav-label">留言管理</span>
+                </a>
+            </li>
+
+
             <li th:class="${active=='blacklist'?'has-submenu active':'has-submenu'}">
                 <a th:href="@{/blacklist}">
-                    <i class="fas fa-skull-crossbones"></i>
+                    <i class="fas fa-ban"></i>
                     <span class="nav-label">黑名单</span>
                 </a>
             </li>
@@ -135,6 +159,13 @@
                 </ul>
             </li>
 
+            <!--            todo-->
+            <li th:class="${active=='student_index'?'has-submenu active':'has-submenu'}">
+                <a href="#" class="has-submenu active">
+                    <i class="fas fa-comment-dots"></i>
+                    <span class="nav-label">留言管理</span>
+                </a>
+            </li>
 
             <li th:class="${active=='personal_settings'?'has-submenu active':'has-submenu'}">
                 <a th:href="@{/personal_settings}">
