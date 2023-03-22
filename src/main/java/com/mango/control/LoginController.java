@@ -38,7 +38,7 @@ public class LoginController {
 
         Student student = service.getStudentById(s_id);
         if (student == null) {
-            model.addAttribute("msg","该用户不存在!");
+            model.addAttribute("msg","该用户不存在！请先进行注册");
             return "login";
         }else {
             if (psw.equals(student.getPassword())) {
