@@ -91,7 +91,6 @@
             </li>
 
 
-
             <li class="has-submenu">
                 <a href="#" class="has-arrow mm-collapsed">
                     <i class="fas fa-calendar-alt"></i>
@@ -105,12 +104,14 @@
 
 
 <!--            todo-->
-            <li th:class="${active=='student_index'?'has-submenu active':'has-submenu'}">
-                <a href="#" class="has-submenu active">
+            <li th:class="${active=='all_notice'?'has-submenu active':'has-submenu'}">
+                <a th:href="@{/all_notice}">
                     <i class="fas fa-sticky-note"></i>
                     <span class="nav-label">公告管理</span>
                 </a>
             </li>
+
+
             <!--            todo-->
             <li th:class="${active=='student_index'?'has-submenu active':'has-submenu'}">
                 <a href="#" class="has-submenu active">
@@ -170,7 +171,7 @@
             <li th:class="${active=='personal_settings'?'has-submenu active':'has-submenu'}">
                 <a th:href="@{/personal_settings}">
                     <i class="fas fa-cog"></i>
-                    <span class="nav-label">设置</span>
+                    <span class="nav-label">个人设置</span>
                 </a>
             </li>
         </ul>

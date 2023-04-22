@@ -25,9 +25,10 @@ public class Student {
     private List<StudentReservation> studentReservations;
     private BlackList blackList;
 
-    public Student(String s_id, String s_name, String s_class, String s_year, String s_major, String s_phone_number) {
+    public Student(String s_id, String s_name,String password, String s_class, String s_year, String s_major, String s_phone_number) {
         this.s_id = s_id;
         this.s_name = s_name;
+        this.password = password;
         this.s_class = s_class;
         this.s_year = s_year;
         this.s_major = s_major;

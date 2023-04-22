@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mango.dao.SystemNoticeDao">
+
+    <!-- 根据发布时间获取最新公告信息 -->
+    <select id="getLatestSystemNotice" resultType="com.mango.pojo.SystemNotice">
+        select *
+        from reservation_demo.notice
+        order by time desc
+            limit 1
+    </select>
+
+    <!-- 获取所有公告信息 -->
+    <select id="getAllSystemNotice" resultType="com.mango.pojo.SystemNotice">
+        select *
+        from reservation_demo.notice
+        order by time desc
+    </select>
+
+    <!--    根据id更新公告信息-->
+    <update id="updateSystemNotice" parameterType="com.mango.pojo.SystemNotice">
+        update reservation_demo.notice
+        <set>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 添加公告信息-->
+    <insert id="addSystemNotice" parameterType="com.mango.pojo.SystemNotice">
+        insert into reservation_demo.notice(id, title, content, time)
+        VALUES (#{id}, #{title}, #{content}, #{time})
+    </insert>
+
+    <!-- 删除公告信息-->
+    <delete id="deleteSystemNoticeById">
+        delete
+        from reservation_demo.notice
+        where id = #{id}
+    </delete>
+
+</mapper>

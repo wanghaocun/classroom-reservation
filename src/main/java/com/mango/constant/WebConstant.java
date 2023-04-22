@@ -10,6 +10,9 @@ public class WebConstant {
     //当前登陆用户
     public static final String LOGIN_USER = "login_user";
 
+    // 当前系统公告
+    public static final String SYSTEM_NOTICE = "system_notice";
+
     //学生预约信息成功状态
     public static final String RESERVATION_SUCCESS_STATE = "预约成功";
 

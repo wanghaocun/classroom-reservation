@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学生信息管理-自习预约管理系统</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" th:href="@{/assets/images/favicon-32x32.png}">
+    <link rel="stylesheet" th:href="@{assets/main/css/fonts.css}">
+    <link rel="stylesheet" th:href="@{/assets/main/css/style.css}">
+</head>
+
+<body>
+<div id="main-wrapper" class="show">
+
+
+    <!-- start section sidebar -->
+    <div th:replace="~{commons/common::sidebar(active='all_notice')}"></div>
+    <!-- End section sidebar -->
+
+
+    <!-- start section header -->
+    <div th:replace="~{commons/common::header}"></div>
+    <!-- End section header -->
+
+
+    <!-- start section content -->
+    <div class="content-body">
+        <div class="warper container-fluid">
+            <div class="all-patients main_container">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4 class="text-primary">系统公告管理</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a th:href="@{/index}">首页</a></li>
+                            <li class="breadcrumb-item active"><a th:href="@{/all_notice}">系统公告管理</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header fix-card">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h4 class="card-title"> 公告信息 </h4>
+                                    </div>
+                                    <!--  回头弄个下拉框-->
+                                    <div class="col-4 form-group text-end">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle='modal'
+                                                data-bs-target='#modal-add-notice'>添加新公告
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example1" class="display nowrap" style="table-layout:fixed">
+                                        <thead>
+                                        <tr>
+                                            <th>标题</th>
+                                            <th>内容</th>
+                                            <th>时间</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="notice:${notices}">
+                                            <td th:text="${notice.getTitle()}"></td>
+                                            <td style="overflow:hidden;text-overflow: ellipsis;"
+                                                th:text="${notice.getContent()}"></td>
+                                            <td th:text="${#dates.format(notice.getTime(), 'yyyy-MM-dd HH:mm:ss')}">
+                                            <td>
+                                                <a data-bs-toggle='modal'
+                                                   th:attr="data-bs-target='#modal-update-notice'+${notice.getId()}"
+                                                   class='mr-4'>
+                                                    <span class='fas fa-pencil-alt'></span>
+                                                </a>
+
+                                                <a data-bs-toggle='modal'
+                                                   th:attr="data-bs-target='#modal-delete-notice'+${notice.getId()}"
+                                                   class='mr-4'>
+                                                    <span class='fas fa-trash-alt'></span>
+                                                </a>
+                                                <div class="modal fade"
+                                                     th:attr="id='modal-update-notice'+${notice.getId()}" tabindex="-1"
+                                                     aria-labelledby="modal-title-edit-row" aria-hidden="true">
+                                                    <form class="modal-dialog modal-lg" th:action="@{/update_notice}">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modal-title-edit-row">
+                                                                    公告信息</h5>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="container-fluid">
+                                                                    <div class="row">
+                                                                        <div class="basic-form">
+                                                                            <form>
+                                                                                <div class="row" hidden="hidden">
+                                                                                    <div class="col-xl-4">
+                                                                                        <div class="form-group">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   th:placeholder="公告ID"
+                                                                                                   th:value="${notice.getId()}"
+                                                                                                   readonly
+                                                                                                   th:name="id">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   th:placeholder="公告标题"
+                                                                                                   th:value="${notice.getTitle()}"
+                                                                                                   th:name="title">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                                <textarea
+                                                                                                        class="form-control"
+                                                                                                        th:placeholder="公告内容"
+                                                                                                        th:inline="text"
+                                                                                                        th:name="content">[[${notice.getContent()}]]</textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary"
+                                                                        data-bs-dismiss="modal">确认修改
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                        data-bs-dismiss="modal">关闭
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal fade"
+                                                     th:attr="id='modal-delete-notice'+${notice.getId()}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="modal-title-edit-modal">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">
+                                                                    提示信息
+                                                                </h5>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close"><span
+                                                                        aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body top-info">
+                                                                <p style="font-size: 22px;font-weight: bold">
+                                                                    确认删除该公告？</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a type="button" class="btn badge-primary"
+                                                                   th:href="@{/delete_notice(id=${notice.getId()})}">
+                                                                    确认
+                                                                </a>
+                                                                <button type="button" class="btn btn-danger"
+                                                                        data-bs-dismiss="modal">
+                                                                    关闭
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End section content -->
+
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-add-notice" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
+    <form class="modal-dialog modal-lg" th:action="@{/add_notice}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-add-notice-row">添加新公告</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="basic-form">
+                            <form>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="标题" name="title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="内容" name="content"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">确认添加</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--End Modal -->
+
+
+<!-- JQuery v3.5.1 -->
+<script src="assets/plugins/jquery/jquery.min.js"></script>
+
+<!-- popper js -->
+<script src="assets/plugins/popper/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Moment -->
+<script src="assets/plugins/moment/moment.min.js"></script>
+
+<!-- Date Range Picker -->
+<script src="assets/plugins/daterangepicker/daterangepicker.min.js"></script>
+
+<!-- Datatable -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/js/init-tdatatable.js"></script>
+
+<!-- Main Custom JQuery -->
+<script src="assets/js/toggleFullScreen.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

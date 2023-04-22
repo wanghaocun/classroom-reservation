@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
@@ -37,7 +37,16 @@
         <div class="warper container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-lg-12 p-md-0">
-                    <h4 class="text-primary"><span class="names" th:text="'学生 ⌈' + ${session.login_user.getS_name()} + '⌋ 你好💕'"></span></h4>
+                    <h4 class="text-primary">
+                        <span class="names"
+                              th:text="'🔊 系统公告'"></span><br>
+                        <div style="line-height: 60px;margin-left: 30px;margin-right: 30px">
+                        <span class="text-black-50"
+                              th:text="'【' + ${session.system_notice.getTitle()} + '】'"></span></div>
+                        <div style="margin-left: 40px;margin-right: 40px">
+                        <span class="text-black-50"
+                              th:text="${session.system_notice.getContent()}">这是系统公告！</span></div>
+                    </h4>
                 </div>
             </div>
 
@@ -148,8 +157,6 @@
         </div>
     </div>
     <!-- End section content -->
-
-
 
 
 </div>

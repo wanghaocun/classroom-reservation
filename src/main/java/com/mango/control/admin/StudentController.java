@@ -27,7 +27,6 @@ public class StudentController {
 
     @GetMapping("/all_student")
     public String all_student(Model model) {
-
         List<Student> students = studentService.getAll();
         model.addAttribute("students",students);
 
@@ -37,27 +36,20 @@ public class StudentController {
     @GetMapping("/add_new_student")
     public String add_new_student(HttpServletRequest request) {
         String s_id = request.getParameter("s_id");
-
         String s_name = request.getParameter("s_name");
-
-        String s_major = request.getParameter("s_major");
-
         String s_class = request.getParameter("s_class");
-
         String s_year = request.getParameter("s_year");
-
+        String s_major = request.getParameter("s_major");
         String s_phone_number = request.getParameter("s_phone_number");
-
-        studentService.addStudent(new Student(s_id,s_name,s_class,s_year,s_major,s_phone_number));
-
+        studentService.addStudent(new Student(s_id,s_name,"123456",s_class,s_year,s_major,s_phone_number));
 
         return "redirect:all_student";
     }
 
     @GetMapping("/student_delete")
     public String student_delete(String s_id) {
-        System.out.println(s_id);
         studentService.deleteStudentInfo(s_id);
+
         return "redirect:all_student";
     }
 
