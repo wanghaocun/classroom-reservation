@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mango.dao.SystemMessageDao">
+
+    <!-- 获取所有公告信息 -->
+    <select id="getAllSystemMessage" resultType="com.mango.pojo.SystemMessage">
+        select *
+        from reservation_demo.message
+        <where>
+            <if test="s_id != 'admin'">
+                s_id = #{s_id}
+            </if>
+        </where>
+        order by time desc
+    </select>
+
+    <!--    根据id更新公告信息-->
+    <update id="updateSystemMessage" parameterType="com.mango.pojo.SystemMessage">
+        update reservation_demo.message
+        <set>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="reply != null">
+                reply = #{reply},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 添加公告信息-->
+    <insert id="addSystemMessage" parameterType="com.mango.pojo.SystemMessage">
+        insert into reservation_demo.message(id, s_id, s_name, content)
+        VALUES (#{id}, #{s_id}, #{s_name}, #{content})
+    </insert>
+
+    <!-- 删除公告信息-->
+    <delete id="deleteSystemMessageById">
+        delete
+        from reservation_demo.message
+        where id = #{id}
+    </delete>
+
+</mapper>

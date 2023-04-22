@@ -66,11 +66,10 @@ public class LoginController {
         String s_id = request.getParameter("s_id");
         String s_name = request.getParameter("s_name");
         String password = request.getParameter("password");
-        String s_class = request.getParameter("s_class");
-        String s_year = request.getParameter("s_year");
         String s_major = request.getParameter("s_major");
-        String s_phone_number = request.getParameter("s_phone_number");
-        service.addStudent(new Student(s_id, s_name, password, s_class, s_year, s_major, s_phone_number));
+        String s_year = request.getParameter("s_year");
+        String s_class = request.getParameter("s_class");
+        service.addStudent(new Student(s_id, s_name, password,   s_major,s_year, s_class));
 
         return "login";
     }

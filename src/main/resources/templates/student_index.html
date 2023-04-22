@@ -42,10 +42,10 @@
                               th:text="'🔊 系统公告'"></span><br>
                         <div style="line-height: 60px;margin-left: 30px;margin-right: 30px">
                         <span class="text-black-50"
-                              th:text="'【' + ${session.system_notice.getTitle()} + '】'"></span></div>
+                              th:text="'【' + ${session.system_notice.getTitle()} + '】'">【公告标题】</span></div>
                         <div style="margin-left: 40px;margin-right: 40px">
                         <span class="text-black-50"
-                              th:text="${session.system_notice.getContent()}">这是系统公告！</span></div>
+                              th:text="${session.system_notice.getContent()}">这是公告内容！</span></div>
                     </h4>
                 </div>
             </div>

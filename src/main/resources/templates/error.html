@@ -2,53 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <style>
-    table td{
-      vertical-align:top;
-      border:solid 1px #888;
-      padding:10px;
-    }
+    <style>
+        table td {
+            vertical-align: top;
+            border: solid 1px #888;
+            padding: 10px;
+        }
 
-  </style>
+    </style>
 </head>
 <body>
 <h1> 自习预约管理系统 </h1>
 <h2>
-  <a href="javascript:location.reload();"> 刷新页面</a>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="javascript:history.go(-1);">返回上一页</a></h2>
+    <a href="javascript:history.go(-1);">返回上页</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:href="@{/}">返回首页</a>
+</h2>
 <h3>请求出错了</h3>
 <table>
-  <tr>
-    <td>请求时间</td>
-    <td th:text="${#dates.format(timestamp, 'yyyy-MM-dd HH:mm:ss')}"/>
-  </tr>
-  <tr>
-    <td>请求路径</td>
-    <td th:text="${path}"/>
-  </tr>
-  <tr>
-    <td>状态编码</td>
-    <td th:text="${status}"/>
-  </tr>
-  <tr>
-    <td>状态信息</td>
-    <td th:text="${error}"/>
-  </tr>
-  <tr>
-    <td>错误信息</td>
-    <td th:text="${message}"/>
-  </tr>
-  <tr>
-    <td>异常信息</td>
-    <td th:text="${exception}"/>
-  </tr>
-  <tr>
-    <td>堆栈信息</td>
-    <td>
-      <pre th:text="${trace}"/>
-    </td>
-  </tr>
+    <tr>
+        <td>请求时间</td>
+        <td th:text="${#dates.format(timestamp, 'yyyy-MM-dd HH:mm:ss')}"/>
+    </tr>
+    <tr>
+        <td>请求路径</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>状态编码</td>
+        <td th:text="${status}"/>
+    </tr>
+    <tr>
+        <td>状态信息</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>错误信息</td>
+        <td th:text="${message}"/>
+    </tr>
+    <tr>
+        <td>异常信息</td>
+        <td th:text="${exception}"/>
+    </tr>
+    <tr>
+        <td>堆栈信息</td>
+        <td>
+            <pre th:text="${trace}"/>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

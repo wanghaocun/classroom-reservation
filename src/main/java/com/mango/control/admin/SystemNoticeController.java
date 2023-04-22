@@ -1,11 +1,8 @@
 package com.mango.control.admin;
 
 
-import com.mango.pojo.Student;
 import com.mango.pojo.SystemNotice;
-import com.mango.service.Impl.StudentServiceImpl;
 import com.mango.service.SystemNoticeService;
-import com.mango.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class systemNoticeController {
+public class SystemNoticeController {
 
     @Autowired
     private SystemNoticeService systemNoticeService;

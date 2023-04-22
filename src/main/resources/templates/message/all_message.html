@@ -17,7 +17,7 @@
 
 
     <!-- start section sidebar -->
-    <div th:replace="~{commons/common::sidebar(active='all_notice')}"></div>
+    <div th:replace="~{commons/common::sidebar(active='all_message')}"></div>
     <!-- End section sidebar -->
 
 
@@ -33,13 +33,13 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4 class="text-primary">系统公告管理</h4>
+                            <h4 class="text-primary">系统留言管理</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a th:href="@{/index}">首页</a></li>
-                            <li class="breadcrumb-item active"><a th:href="@{/all_notice}">系统公告管理</a></li>
+                            <li class="breadcrumb-item active"><a th:href="@{/all_message}">系统留言管理</a></li>
                         </ol>
                     </div>
                 </div>
@@ -49,13 +49,13 @@
                             <div class="card-header fix-card">
                                 <div class="row">
                                     <div class="col-8">
-                                        <h4 class="card-title"> 公告信息 </h4>
+                                        <h4 class="card-title"> 留言信息 </h4>
                                     </div>
-                                    <div class="col-4 form-group text-end">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle='modal'
-                                                data-bs-target='#modal-add-notice'>添加新公告
-                                        </button>
-                                    </div>
+<!--                                    <div class="col-4 form-group text-end">-->
+<!--                                        <button type="button" class="btn btn-primary" data-bs-toggle='modal'-->
+<!--                                                data-bs-target='#modal-add-message'>添加新留言-->
+<!--                                        </button>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                             <div class="card-body">
@@ -63,40 +63,42 @@
                                     <table id="example1" class="display nowrap" style="table-layout:fixed">
                                         <thead>
                                         <tr>
-                                            <th>标题</th>
                                             <th>内容</th>
+                                            <th>回复</th>
                                             <th>时间</th>
                                             <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="notice:${notices}">
-                                            <td th:title="${notice.getTitle()}"
-                                                th:text="${notice.getTitle()}"></td>
+                                        <tr th:each="message:${messages}">
                                             <td style="overflow:hidden;text-overflow: ellipsis;"
-                                                th:title="${notice.getContent()}"
-                                                th:text="${notice.getContent()}"></td>
-                                            <td th:text="${#dates.format(notice.getTime(), 'yyyy-MM-dd HH:mm:ss')}">
+                                                th:title="${message.getContent()}"
+                                                th:text="${message.getContent()}">-</td>
+                                            <td style="overflow:hidden;text-overflow: ellipsis;"
+                                                th:title="${message.getReply()}"
+                                                th:text="${message.getReply()}">-</td>
+                                            <td th:text="${#dates.format(message.getTime(), 'yyyy-MM-dd HH:mm:ss')}">-</td>
                                             <td>
                                                 <a data-bs-toggle='modal'
-                                                   th:attr="data-bs-target='#modal-update-notice'+${notice.getId()}"
+                                                   th:attr="data-bs-target='#modal-update-message'+${message.getId()}"
                                                    class='mr-4'>
                                                     <span class='fas fa-pencil-alt'></span>
                                                 </a>
 
                                                 <a data-bs-toggle='modal'
-                                                   th:attr="data-bs-target='#modal-delete-notice'+${notice.getId()}"
+                                                   th:attr="data-bs-target='#modal-delete-message'+${message.getId()}"
                                                    class='mr-4'>
                                                     <span class='fas fa-trash-alt'></span>
                                                 </a>
                                                 <div class="modal fade"
-                                                     th:attr="id='modal-update-notice'+${notice.getId()}" tabindex="-1"
+                                                     th:attr="id='modal-update-message'+${message.getId()}"
+                                                     tabindex="-1"
                                                      aria-labelledby="modal-title-edit-row" aria-hidden="true">
-                                                    <form class="modal-dialog modal-lg" th:action="@{/update_notice}">
+                                                    <form class="modal-dialog modal-lg" th:action="@{/update_message}">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="modal-title-edit-row">
-                                                                    公告信息</h5>
+                                                                    留言信息</h5>
                                                                 <button type="button" class="close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -112,22 +114,35 @@
                                                                                         <div class="form-group">
                                                                                             <input type="text"
                                                                                                    class="form-control"
-                                                                                                   th:placeholder="公告ID"
-                                                                                                   th:value="${notice.getId()}"
+                                                                                                   th:placeholder="留言ID"
+                                                                                                   th:value="${message.getId()}"
                                                                                                    readonly
                                                                                                    th:name="id">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-xl-12">
+                                                                                <div class="row" hidden="hidden">
+                                                                                    <div class="col-xl-4">
                                                                                         <div class="form-group">
                                                                                             <input type="text"
                                                                                                    class="form-control"
-                                                                                                   th:title="公告标题"
-                                                                                                   th:placeholder="公告标题"
-                                                                                                   th:value="${notice.getTitle()}"
-                                                                                                   th:name="title">
+                                                                                                   th:placeholder="学生ID"
+                                                                                                   th:value="${message.getS_id()}"
+                                                                                                   readonly
+                                                                                                   th:name="s_id">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row" th:hidden="${session.login_user.getS_id() != 'admin'}">
+                                                                                    <div class="col-xl-4">
+                                                                                        <div class="form-group">
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   th:title="学生姓名"
+                                                                                                   th:placeholder="学生姓名"
+                                                                                                   th:value="${message.getS_name()}"
+                                                                                                   readonly
+                                                                                                   th:name="s_name">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -136,10 +151,24 @@
                                                                                         <div class="form-group">
                                                                                                 <textarea
                                                                                                         class="form-control"
-                                                                                                        th:title="公告内容"
-                                                                                                        th:placeholder="公告内容"
+                                                                                                        th:readonly="${session.login_user.getS_id() == 'admin'}"
+                                                                                                        th:title="留言内容"
+                                                                                                        th:placeholder="留言内容"
                                                                                                         th:inline="text"
-                                                                                                        th:name="content">[[${notice.getContent()}]]</textarea>
+                                                                                                        th:name="content">[[${message.getContent()}]]</textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-xl-12">
+                                                                                        <div class="form-group">
+                                                                                                <textarea
+                                                                                                        class="form-control"
+                                                                                                        th:readonly="${session.login_user.getS_id() != 'admin'}"
+                                                                                                        th:title="留言回复"
+                                                                                                        th:placeholder="留言回复"
+                                                                                                        th:inline="text"
+                                                                                                        th:name="reply">[[${message.getReply()}]]</textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -160,7 +189,8 @@
                                                     </form>
                                                 </div>
                                                 <div class="modal fade"
-                                                     th:attr="id='modal-delete-notice'+${notice.getId()}" tabindex="-1"
+                                                     th:attr="id='modal-delete-message'+${message.getId()}"
+                                                     tabindex="-1"
                                                      role="dialog" aria-labelledby="modal-title-edit-modal">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -174,11 +204,11 @@
                                                             </div>
                                                             <div class="modal-body top-info">
                                                                 <p style="font-size: 22px;font-weight: bold">
-                                                                    确认删除该公告？</p>
+                                                                    确认删除该留言？</p>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <a type="button" class="btn badge-primary"
-                                                                   th:href="@{/delete_notice(id=${notice.getId()})}">
+                                                                   th:href="@{/delete_message(id=${message.getId()})}">
                                                                     确认
                                                                 </a>
                                                                 <button type="button" class="btn btn-danger"
@@ -208,47 +238,39 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modal-add-notice" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">
-    <form class="modal-dialog modal-lg" th:action="@{/add_notice}">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-add-notice-row">添加新公告</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="basic-form">
-                            <form>
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" title="标题" placeholder="标题" name="title">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" title="内容" placeholder="内容" name="content"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">确认添加</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>
-            </div>
-        </div>
-    </form>
-</div>
-
+<!--<div class="modal fade" id="modal-add-message" tabindex="-1" aria-labelledby="modal-title-edit-row" aria-hidden="true">-->
+<!--    <form class="modal-dialog modal-lg" th:action="@{/add_message}">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="modal-add-message-row">添加新留言</h5>-->
+<!--                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="row">-->
+<!--                        <div class="basic-form">-->
+<!--                            <form>-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-xl-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <textarea class="form-control" placeholder="内容" name="content"></textarea>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">确认添加</button>-->
+<!--                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">关闭</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
 <!--End Modal -->
 
 
