@@ -1,14 +1,35 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://122.112.210.234:23306/reservation_demo?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
-    username: root
-    password: mydemo
-  thymeleaf:
-    cache: false
+  main:
+    banner-mode: off
+  profiles:
+    active: prod
 
 mybatis:
   type-aliases-package: com.mango.pojo
   mapper-locations: classpath:mybatis/mapper/*.xml
 server:
-  port: 9098
+  port: 23332
+
+---
+spring:
+  config:
+    location: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:23306/reservation_demo?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
+    username: root
+    password: mydemo
+  thymeleaf:
+    cache: false
+
+---
+spring:
+  config:
+    location: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:23306/reservation_demo?serverTimezone=UTC&useSSL=false&useUnicode=true&charsetEncoding=UTF-8
+    username: root
+    password: mydemo
+  thymeleaf:
+    cache: true

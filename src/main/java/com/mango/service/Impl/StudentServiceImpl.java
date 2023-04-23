@@ -70,9 +70,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudentInfo(String s_id) {
-        studentDao.deleteStudentById(s_id);
-        studentDao.deleteStudentBlackListById(s_id);
         studentDao.deleteStudentReservationById(s_id);
+        studentDao.deleteStudentBlackListById(s_id);
+        studentDao.deleteStudentById(s_id);
     }
 
     public boolean checkThreeTimesCanceledOfWeek(List<String> info) {
